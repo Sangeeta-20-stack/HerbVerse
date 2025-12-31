@@ -11,9 +11,11 @@ const Plants = () => {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
   const [searchTerm, setSearchTerm] = useState("");
   const [filterUse, setFilterUse] = useState("");
   const [filterHabitat, setFilterHabitat] = useState("");
+  const [sortOption, setSortOption] = useState("");
 
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
@@ -23,30 +25,28 @@ const Plants = () => {
       try {
         if (!token) {
           setError("Please login to view plants.");
+          toast.error("Please login to view plants.");
           setLoading(false);
-          toast.error("Please login to view plants."); // toast notification
           return;
         }
 
-        // Fetch plants
         const res = await axiosInstance.get("/plants", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setPlants(res.data);
         setFilteredPlants(res.data);
 
-        // Fetch user's bookmarks & notes
         if (role === "user") {
           const userData = await axiosInstance.get("/auth/data", {
             headers: { Authorization: `Bearer ${token}` },
           });
           setBookmarks(userData.data.bookmarks.map((b) => b._id));
-          setNotes(userData.data.notes); // array with {plant: {_id}, text}
+          setNotes(userData.data.notes);
         }
       } catch (err) {
         console.error(err);
         setError(err.message);
-        toast.error(err.message); // toast error
+        toast.error(err.message);
       } finally {
         setLoading(false);
       }
@@ -55,43 +55,46 @@ const Plants = () => {
     fetchPlants();
   }, [token, role]);
 
-  // Filter & Search
   useEffect(() => {
     let tempPlants = [...plants];
 
+    // Search
     if (searchTerm) {
+      const term = searchTerm.toLowerCase();
       tempPlants = tempPlants.filter(
         (p) =>
-          p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          (p.botanicalName &&
-            p.botanicalName.toLowerCase().includes(searchTerm.toLowerCase())) ||
-          (p.commonNames &&
-            p.commonNames.some((cn) =>
-              cn.toLowerCase().includes(searchTerm.toLowerCase())
-            ))
+          p.name.toLowerCase().includes(term) ||
+          (p.botanicalName && p.botanicalName.toLowerCase().includes(term)) ||
+          (p.commonNames && p.commonNames.some((cn) => cn.toLowerCase().includes(term)))
       );
     }
 
+    // Filters
     if (filterUse) {
       tempPlants = tempPlants.filter(
         (p) =>
           p.medicinalUses &&
-          p.medicinalUses.some((use) =>
-            use.toLowerCase().includes(filterUse.toLowerCase())
-          )
+          p.medicinalUses.some((use) => use.toLowerCase().includes(filterUse.toLowerCase()))
       );
     }
 
     if (filterHabitat) {
       tempPlants = tempPlants.filter(
-        (p) =>
-          p.habitat &&
-          p.habitat.toLowerCase().includes(filterHabitat.toLowerCase())
+        (p) => p.habitat && p.habitat.toLowerCase().includes(filterHabitat.toLowerCase())
+      );
+    }
+
+    // Sorting
+    if (sortOption === "alphabetical") {
+      tempPlants.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortOption === "medicinal") {
+      tempPlants.sort(
+        (a, b) => (b.medicinalUses?.length || 0) - (a.medicinalUses?.length || 0)
       );
     }
 
     setFilteredPlants(tempPlants);
-  }, [searchTerm, filterUse, filterHabitat, plants]);
+  }, [searchTerm, filterUse, filterHabitat, sortOption, plants]);
 
   return (
     <div className="min-h-screen relative font-inter py-12 px-6">
@@ -106,9 +109,9 @@ const Plants = () => {
         </p>
       </header>
 
-      <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
-        {/* Search and filters */}
-        <div className="relative w-full sm:w-1/3">
+      {/* Filters */}
+      <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-10">
+        <div className="relative w-full sm:w-1/4">
           <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-green-500" />
           <input
             type="text"
@@ -119,7 +122,7 @@ const Plants = () => {
           />
         </div>
 
-        <div className="relative w-full sm:w-1/3">
+        <div className="relative w-full sm:w-1/4">
           <FaLeaf className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-500" />
           <input
             type="text"
@@ -130,7 +133,7 @@ const Plants = () => {
           />
         </div>
 
-        <div className="relative w-full sm:w-1/3">
+        <div className="relative w-full sm:w-1/4">
           <FaGlobe className="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-500" />
           <input
             type="text"
@@ -139,6 +142,18 @@ const Plants = () => {
             onChange={(e) => setFilterHabitat(e.target.value)}
             className="pl-10 pr-4 py-3 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400"
           />
+        </div>
+
+        <div className="relative w-full sm:w-1/4">
+          <select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+            className="pl-3 pr-3 py-2 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+            <option value="">Sort By</option>
+            <option value="alphabetical">Alphabetical</option>
+            <option value="medicinal">Medicinal Importance</option>
+          </select>
         </div>
       </div>
 
@@ -158,10 +173,10 @@ const Plants = () => {
               <PlantCard
                 key={plant._id}
                 plant={plant}
-                role={role} // important
+                role={role}
                 bookmarked={bookmarked}
                 note={noteObj?.text}
-                toast={toast} // pass toast function to PlantCard
+                toast={toast}
               />
             );
           })}

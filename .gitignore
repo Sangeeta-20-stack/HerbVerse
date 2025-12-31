@@ -1,6 +1,4 @@
-# Node modules
 node_modules/
-
-# Environment files
 .env
-
+/dist
+/build

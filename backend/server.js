@@ -26,17 +26,19 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // ================= Import routes & middleware =================
 const authRoutes = require("./routes/authRoutes");
-const plantRoutes = require("./routes/plantRoutes"); // plant routes
-const uploadRoute = require("./routes/upload"); // upload route
-const adminRoutes = require("./routes/adminRoutes"); // admin routes
+const plantRoutes = require("./routes/plantRoutes");
+const uploadRoute = require("./routes/upload");
+const adminRoutes = require("./routes/adminRoutes");
+const tourRoutes = require("./routes/tourRoutes");
 const protect = require("./middleware/authMiddleware");
 const adminOnly = require("./middleware/roleMiddleware");
 
 // ================= Routes =================
 app.use("/api/auth", authRoutes);
 app.use("/api/plants", plantRoutes);
-app.use("/api/upload", uploadRoute); 
-app.use("/api/admin", adminRoutes); // admin panel routes
+app.use("/api/upload", uploadRoute);
+app.use("/api/admin", adminRoutes);
+app.use("/api/tours", tourRoutes); // <-- Added VirtualTour routes
 
 // ================= Test protected routes =================
 app.get("/api/test/protect", protect, (req, res) => {

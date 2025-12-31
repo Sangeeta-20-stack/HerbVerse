@@ -14,6 +14,11 @@ import Register from "./pages/Register";
 import Plants from "./pages/Plants";
 import PlantDetail from "./pages/PlantDetail";
 
+/* Virtual Tour Pages */
+import VirtualTours from "./pages/VirtualTours";
+import VirtualTourDetail from "./pages/VirtualTourDetail";
+import AdminTours from "./pages/AdminTours";
+
 /* Admin Pages */
 import AdminDashboard from "./pages/AdminDashboard";
 import ManagePlants from "./pages/ManagePlants";
@@ -52,18 +57,11 @@ const NavbarWrapper = () => {
   const token = localStorage.getItem("token");
   const role = localStorage.getItem("role");
 
-  // ❌ NO navbar on public pages
   const hideNavbarRoutes = ["/", "/login", "/register"];
-  if (hideNavbarRoutes.includes(location.pathname)) {
-    return null;
-  }
-
-  // ❌ no navbar if not logged in
+  if (hideNavbarRoutes.includes(location.pathname)) return null;
   if (!token) return null;
 
-  // ✅ role-based navbar
-  if (role === "admin") return <AdminNavbar />;
-  return <UserNavbar />;
+  return role === "admin" ? <AdminNavbar /> : <UserNavbar />;
 };
 
 /* ===================== APP ===================== */
@@ -71,18 +69,16 @@ const NavbarWrapper = () => {
 function App() {
   return (
     <Router>
-      {/* Toast container */}
       <Toaster position="top-center" reverseOrder={false} />
-
       <NavbarWrapper />
 
       <Routes>
-        {/* -------- PUBLIC ROUTES -------- */}
+        {/* -------- PUBLIC -------- */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* -------- USER ROUTES -------- */}
+        {/* -------- USER -------- */}
         <Route
           path="/plants"
           element={
@@ -100,7 +96,25 @@ function App() {
           }
         />
 
-        {/* -------- ADMIN ROUTES -------- */}
+        {/* -------- VIRTUAL TOURS (USER + ADMIN) -------- */}
+        <Route
+          path="/tours"
+          element={
+            <ProtectedRoute>
+              <VirtualTours />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tours/:id"
+          element={
+            <ProtectedRoute>
+              <VirtualTourDetail />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* -------- ADMIN -------- */}
         <Route
           path="/admin"
           element={
@@ -122,6 +136,14 @@ function App() {
           element={
             <AdminRoute>
               <ManageUsers />
+            </AdminRoute>
+          }
+        />
+        <Route
+          path="/admin/tours"
+          element={
+            <AdminRoute>
+              <AdminTours />
             </AdminRoute>
           }
         />

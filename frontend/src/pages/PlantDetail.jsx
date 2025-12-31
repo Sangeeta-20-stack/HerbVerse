@@ -1,14 +1,50 @@
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState, Suspense, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Html } from "@react-three/drei";
 import axiosInstance from "../utils/axiosInstance";
 import toast from "react-hot-toast";
 
 const PlantModel = ({ modelUrl }) => {
   const gltf = useGLTF(modelUrl);
+  const ref = useRef();
+
+  // Auto rotate model
+  useFrame(() => {
+    if (ref.current) {
+      ref.current.rotation.y += 0.003; // slow rotation
+    }
+  });
+
   if (!gltf?.scene) return null;
-  return <primitive object={gltf.scene} scale={1} position={[0, -0.5, 0]} />;
+
+  const handlePointerOver = (e) => {
+    e.stopPropagation();
+    e.object.material && (e.object.material.emissive.setHex(0x00ff00)); // glow effect
+  };
+
+  const handlePointerOut = (e) => {
+    e.stopPropagation();
+    e.object.material && (e.object.material.emissive.setHex(0x000000)); // reset glow
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    const partName = e.object.name || "unknown part";
+    toast(`Clicked on: ${partName}`);
+  };
+
+  return (
+    <primitive
+      ref={ref}
+      object={gltf.scene}
+      scale={1}
+      position={[0, -0.5, 0]}
+      onPointerOver={handlePointerOver}
+      onPointerOut={handlePointerOut}
+      onClick={handleClick}
+    />
+  );
 };
 
 const PlantDetail = () => {
@@ -119,7 +155,6 @@ const PlantDetail = () => {
 
         {/* LEFT: Image / 3D Model + Bookmark & Note */}
         <div className="flex flex-col gap-6">
-
           {imageUrl && (
             <div className="w-full h-96 rounded-xl overflow-hidden border-2 border-green-700 shadow-xl hover:shadow-2xl transition-all duration-500">
               <img
@@ -138,7 +173,14 @@ const PlantDetail = () => {
                 <Suspense fallback={<Html center className="text-gray-200">Loading 3D model...</Html>}>
                   <PlantModel modelUrl={modelUrl} />
                 </Suspense>
-                <OrbitControls enablePan enableZoom enableRotate zoomSpeed={0.8} />
+                <OrbitControls
+                  enablePan
+                  enableZoom
+                  enableRotate
+                  autoRotate
+                  autoRotateSpeed={0.5}
+                  zoomSpeed={0.8}
+                />
               </Canvas>
             </div>
           )}

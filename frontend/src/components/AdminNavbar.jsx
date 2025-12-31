@@ -38,6 +38,7 @@ const AdminNavbar = () => {
             { label: "Garden", path: "/plants" },
             { label: "Plants", path: "/admin/plants" },
             { label: "Users", path: "/admin/users" },
+            {label :"Tours" , path:"/admin/tours"},
           ].map(({ label, path }) => (
             <Link
               key={label}

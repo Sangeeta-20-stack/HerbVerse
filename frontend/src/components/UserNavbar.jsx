@@ -61,6 +61,22 @@ const UserNavbar = () => {
             Hello, {user?.name || "User"}
           </span>
 
+          {/* Virtual Tours Link */}
+          <Link
+            to="/tours"
+            className="
+              px-4 py-2 rounded-xl font-semibold
+              bg-gradient-to-r from-mintGreen to-oliveAccent
+              text-deepForest
+              shadow-md shadow-mintGreen/30
+              transition-all duration-300
+              hover:scale-105 hover:shadow-lg hover:shadow-mintGreen/50
+              active:scale-95
+            "
+          >
+            Virtual Tours
+          </Link>
+
           {/* Logout */}
           <button
             onClick={logout}
