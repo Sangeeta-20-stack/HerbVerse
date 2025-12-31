@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api", // backend base URL
+  baseURL: "https://herbverse-backend-xg7z.onrender.com", // backend base URL
   headers: {
     "Content-Type": "application/json",
   },
@@ -21,3 +21,4 @@ axiosInstance.interceptors.request.use(
 
 
 export default axiosInstance;
+
