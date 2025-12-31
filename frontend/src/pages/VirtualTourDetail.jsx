@@ -10,12 +10,18 @@ const PlantModel = ({ modelUrl }) => {
   const { scene } = useGLTF(modelUrl);
   const ref = useRef();
 
-  // Rotate model slowly
   useFrame(() => {
-    if (ref.current) ref.current.rotation.y += 0.003;
+    if (ref.current) ref.current.rotation.y += 0.004;
   });
 
-  return <primitive ref={ref} object={scene} scale={2} position={[0, -0.5, 0]} />;
+  return (
+    <primitive
+      ref={ref}
+      object={scene}
+      scale={3.5}
+      position={[0, -0.5, 0]}
+    />
+  );
 };
 
 const VirtualTourDetail = () => {
@@ -30,6 +36,7 @@ const VirtualTourDetail = () => {
       try {
         const res = await getTourById(id);
         const tourData = res.data.tour || res.data;
+
         tourData.plantIds = tourData.plantIds.map((plant) => ({
           ...plant,
           modelUrl: plant.modelUrl ? `${BASE_URL}${plant.modelUrl}` : null,
@@ -38,80 +45,158 @@ const VirtualTourDetail = () => {
               ? `${BASE_URL}${plant.images[0]}`
               : null,
         }));
+
         setTour(tourData);
-      } catch (err) {
+      } catch {
         setError("Failed to load virtual tour");
       } finally {
         setLoading(false);
       }
     };
+
     fetchTour();
   }, [id]);
 
   useEffect(() => {
     if (!tour || tour.plantIds.length === 0) return;
+
     const interval = setInterval(() => {
       setCurrentPlantIndex((prev) =>
         prev === tour.plantIds.length - 1 ? 0 : prev + 1
       );
     }, tour.duration * 1000);
+
     return () => clearInterval(interval);
   }, [tour]);
 
-  if (loading) return <p className="p-6 text-center">Loading tour...</p>;
-  if (error) return <p className="p-6 text-red-500 text-center">{error}</p>;
+  if (loading)
+    return (
+      <p className="p-6 text-center text-[#556B2F] font-medium">
+        Loading tour...
+      </p>
+    );
+
+  if (error)
+    return (
+      <p className="p-6 text-center text-red-600 font-medium">
+        {error}
+      </p>
+    );
+
   if (!tour || tour.plantIds.length === 0)
-    return <p className="p-6 text-gray-500 text-center">No plants available in this tour.</p>;
+    return (
+      <p className="p-6 text-center text-gray-500 font-medium">
+        No plants available in this tour.
+      </p>
+    );
 
   const currentPlant = tour.plantIds[currentPlantIndex];
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6 bg-green-50 min-h-screen">
-      {/* Tour Header */}
+    <div className="p-6 max-w-6xl mx-auto space-y-8 min-h-screen">
+
+      {/* 🌿 TOUR HEADER */}
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold mb-2 text-green-800">{tour.title}</h1>
-        <p className="text-gray-700 text-lg mb-1">Theme: {tour.theme}</p>
-        <p className="text-gray-600">Duration: {tour.duration}s per plant</p>
+        <h1 className="text-4xl md:text-5xl font-playfair font-bold mb-2 text-[#556B2F]">
+          {tour.title.split(" ").map((word, i) => (
+            <span key={i} className="text-[#A3C4A6] mr-1">
+              {word}
+            </span>
+          ))}
+        </h1>
+        <p className="mt-2 text-[#8B6D5C]/80 text-lg">
+          Theme: {tour.theme} | Duration: {tour.duration}s per plant
+        </p>
       </div>
 
-      {/* Plant Card */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center hover:shadow-2xl transition-shadow duration-300 relative">
-        {/* Plant Name */}
-        <h3 className="text-3xl font-semibold mb-2 text-green-900">{currentPlant.name}</h3>
+      {/* 🌱 PLANT CARD */}
+      <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center hover:shadow-2xl transition-shadow duration-300">
 
-        {/* 3D Model */}
+        {/* 3D MODEL */}
         {currentPlant.modelUrl && (
-          <div className="w-full md:w-96 h-96 mb-4">
+          <div className="w-[28rem] h-[28rem] rounded-xl shadow-md flex-shrink-0">
             <Canvas>
               <ambientLight intensity={0.8} />
               <directionalLight position={[5, 5, 5]} intensity={1} />
               <PlantModel modelUrl={currentPlant.modelUrl} />
-              <OrbitControls enableZoom={true} enablePan={false} />
+              <OrbitControls enableZoom enableRotate />
             </Canvas>
           </div>
         )}
 
-        {/* Plant Info: Botanical & Common Names */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full">
+        {/* INFO */}
+        <div className="flex flex-col md:ml-6 mt-4 md:mt-0 items-center md:items-start text-center md:text-left">
+
+          {/* 🌿 PLANT NAME */}
+          <h3 className="text-3xl md:text-4xl font-bold text-[#556B2F] mb-4">
+            {currentPlant.name}
+          </h3>
+
+          {/* IMAGE */}
           {currentPlant.imageUrl && (
-            <img
-              src={currentPlant.imageUrl}
-              alt={currentPlant.name}
-              className="w-32 h-32 object-cover rounded-xl shadow-md mb-2 md:mb-0 md:ml-4"
-            />
+            <div className="mb-4">
+              <img
+                src={currentPlant.imageUrl}
+                alt={currentPlant.name}
+                className="w-40 h-40 object-cover rounded-xl shadow-lg mb-2"
+              />
+              {currentPlant.commonNames?.length > 0 && (
+                <p className="font-semibold text-[#A3C4A6]">
+                  {currentPlant.commonNames.join(", ")}
+                </p>
+              )}
+            </div>
           )}
-          <div className="text-center md:text-left">
-            <p className="text-gray-600 text-lg">{currentPlant.scientificName}</p>
-            {currentPlant.commonNames?.length > 0 && (
-              <p className="text-gray-500 text-sm">
-                Common: {currentPlant.commonNames.join(", ")}
-              </p>
+
+          {/* 🌱 DETAILS */}
+          <ul className="space-y-1 text-gray-700">
+            {currentPlant.botanicalName && (
+              <li>
+                <span className="font-semibold text-[#556B2F]">
+                  Botanical Name:
+                </span>{" "}
+                {currentPlant.botanicalName}
+              </li>
             )}
-          </div>
+            {currentPlant.commonNames?.length > 0 && (
+              <li>
+                <span className="font-semibold text-[#556B2F]">
+                  Common Names:
+                </span>{" "}
+                {currentPlant.commonNames.join(", ")}
+              </li>
+            )}
+            {currentPlant.habitat && (
+              <li>
+                <span className="font-semibold text-[#556B2F]">
+                  Habitat:
+                </span>{" "}
+                {currentPlant.habitat}
+              </li>
+            )}
+            {currentPlant.medicinalUses?.length > 0 && (
+              <li>
+                <span className="font-semibold text-[#556B2F]">
+                  Medicinal Uses:
+                </span>{" "}
+                {currentPlant.medicinalUses.join(", ")}
+              </li>
+            )}
+            {currentPlant.cultivation && (
+              <li>
+                <span className="font-semibold text-[#556B2F]">
+                  Cultivation:
+                </span>{" "}
+                Soil: {currentPlant.cultivation.soil}, Climate:{" "}
+                {currentPlant.cultivation.climate}, Watering:{" "}
+                {currentPlant.cultivation.watering}
+              </li>
+            )}
+          </ul>
         </div>
       </div>
 
-      {/* Tour Progress */}
+      {/* PROGRESS */}
       <p className="text-center text-gray-500">
         Showing plant {currentPlantIndex + 1} of {tour.plantIds.length}
       </p>

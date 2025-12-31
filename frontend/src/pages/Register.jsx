@@ -8,7 +8,7 @@ const Register = () => {
     name: "",
     email: "",
     password: "",
-    role: "user", // default role
+    role: "user",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -24,7 +24,7 @@ const Register = () => {
     try {
       const res = await axiosInstance.post("/auth/register", formData);
       localStorage.setItem("token", res.data.token);
-      navigate("/plants"); // redirect after register
+      navigate("/plants");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed");
     } finally {
@@ -33,8 +33,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative font-inter">
-      {/* Background */}
+    <div className="min-h-screen flex items-center justify-center relative font-inter bg-[#F9F8F3]">
+      {/* Background overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
@@ -47,14 +47,14 @@ const Register = () => {
       {/* Form */}
       <form
         onSubmit={handleSubmit}
-        className="relative z-10 w-full max-w-md bg-[#0b1f1a]/80 backdrop-blur-md rounded-3xl p-10 flex flex-col gap-6
-                  shadow-lg transition-shadow duration-300 hover:shadow-[0_0_30px_rgba(110,231,183,0.5)]"
+        className="relative z-10 w-full max-w-md bg-[#0b1f1a]/95 backdrop-blur-md rounded-3xl p-10 flex flex-col gap-6
+                   shadow-lg transition-shadow duration-300 hover:shadow-[0_0_35px_rgba(110,231,183,0.7)]"
       >
-        <h2 className="text-3xl font-extrabold text-mintGreen text-center animate-fadeIn font-cinzel">
+        <h2 className="text-3xl font-extrabold text-mintGreen text-center font-cinzel">
           Register to HerbVerse
         </h2>
 
-        {error && <p className="text-red-500 text-center">{error}</p>}
+        {error && <p className="text-red-500 text-center font-semibold">{error}</p>}
 
         <input
           type="text"
@@ -62,7 +62,8 @@ const Register = () => {
           placeholder="Full Name"
           value={formData.name}
           onChange={handleChange}
-          className="w-full p-3 rounded-xl bg-[#081612]/80 border border-mintGreen text-softWhite focus:outline-none focus:ring-2 focus:ring-mintGreen transition-all"
+          className="w-full p-3 rounded-xl bg-[#081612] border border-mintGreen text-softWhite
+                     focus:outline-none focus:ring-2 focus:ring-mintGreen placeholder:text-[#a0f0b0] transition-all"
           required
         />
 
@@ -72,7 +73,8 @@ const Register = () => {
           placeholder="Email Address"
           value={formData.email}
           onChange={handleChange}
-          className="w-full p-3 rounded-xl bg-[#081612]/80 border border-mintGreen text-softWhite focus:outline-none focus:ring-2 focus:ring-mintGreen transition-all"
+          className="w-full p-3 rounded-xl bg-[#081612] border border-mintGreen text-softWhite
+                     focus:outline-none focus:ring-2 focus:ring-mintGreen placeholder:text-[#a0f0b0] transition-all"
           required
         />
 
@@ -82,50 +84,51 @@ const Register = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          className="w-full p-3 rounded-xl bg-[#081612]/80 border border-mintGreen text-softWhite focus:outline-none focus:ring-2 focus:ring-mintGreen transition-all"
+          className="w-full p-3 rounded-xl bg-[#081612] border border-mintGreen text-softWhite
+                     focus:outline-none focus:ring-2 focus:ring-mintGreen placeholder:text-[#a0f0b0] transition-all"
           required
         />
 
         {/* Role Selector */}
         <div className="relative w-full">
-  <select
-    name="role"
-    value={formData.role}
-    onChange={handleChange}
-    className="appearance-none w-full p-3 rounded-xl bg-[#081612]/80 border border-mintGreen text-softWhite 
-               focus:outline-none focus:ring-2 focus:ring-mintGreen transition-all 
-               cursor-pointer pr-10"
-  >
-    <option value="user">User</option>
-    <option value="admin">Admin</option>
-  </select>
-  {/* Custom dropdown arrow */}
-  <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
-    <svg
-      className="w-5 h-5 text-mintGreen"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2}
-      viewBox="0 0 24 24"
-    >
-      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
-</div>
+          <select
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+            className="appearance-none w-full p-3 rounded-xl bg-[#081612] border border-mintGreen
+                       text-softWhite focus:outline-none focus:ring-2 focus:ring-mintGreen cursor-pointer pr-10 transition-all"
+          >
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+            <svg
+              className="w-5 h-5 text-mintGreen"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+        </div>
 
-
+        {/* Submit Button */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full py-3 bg-gradient-to-r from-mintGreen to-oliveAccent text-deepForest font-semibold rounded-xl hover:scale-105 hover:shadow-lg hover:shadow-mintGreen/40 transition-all duration-300"
+          className="w-full py-3 bg-gradient-to-r from-mintGreen to-oliveAccent text-[#081612] font-semibold rounded-xl
+                     hover:scale-105 hover:shadow-lg hover:shadow-mintGreen/50 transition-all duration-300"
         >
           {loading ? "Registering..." : "Enter the Garden"}
         </button>
 
+        {/* Login Link */}
         <p className="text-softWhite text-center">
           Already have an account?{" "}
           <span
-            className="text-mintGreen cursor-pointer hover:text-oliveAccent"
+            className="text-mintGreen cursor-pointer hover:text-oliveAccent transition-colors duration-300 font-semibold"
             onClick={() => navigate("/login")}
           >
             Login

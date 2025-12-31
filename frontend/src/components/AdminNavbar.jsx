@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 const AdminNavbar = () => {
   const navigate = useNavigate();
 
-  // ✅ SAFE read
   let admin = null;
   try {
     const storedUser = localStorage.getItem("user");
@@ -17,7 +16,7 @@ const AdminNavbar = () => {
 
   const logout = () => {
     localStorage.clear();
-    navigate("/login", { replace: true });
+    navigate("/login");
   };
 
   return (
@@ -25,30 +24,30 @@ const AdminNavbar = () => {
       className="
         sticky top-0 z-50
         backdrop-blur-xl
-        bg-gradient-to-r from-[#071914]/95 via-[#0c2b22]/95 to-[#071914]/95
-        border-b border-white/10
-        shadow-[0_8px_30px_rgba(0,0,0,0.45)]
+        bg-[#F9F8F3]/95
+        border-b border-[#A3C4A6]/30
+        shadow-[0_8px_30px_rgba(0,0,0,0.15)]
       "
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center font-inter">
 
         {/* LEFT LINKS */}
-        <div className="flex items-center gap-8 text-softWhite">
+        <div className="flex items-center gap-8">
           {[
             { label: "Garden", path: "/plants" },
             { label: "Plants", path: "/admin/plants" },
             { label: "Users", path: "/admin/users" },
-            {label :"Tours" , path:"/admin/tours"},
+            { label: "Tours", path: "/admin/tours" },
           ].map(({ label, path }) => (
             <Link
               key={label}
               to={path}
               className="
-                relative text-lg font-semibold
+                relative text-lg font-semibold text-[#556B2F]
                 transition-all duration-300
-                hover:text-mintGreen hover:-translate-y-0.5
+                hover:text-[#A3C4A6] hover:-translate-y-0.5
                 after:absolute after:left-0 after:-bottom-1
-                after:h-[2px] after:w-0 after:bg-mintGreen
+                after:h-[2px] after:w-0 after:bg-[#A3C4A6]
                 after:transition-all after:duration-300
                 hover:after:w-full
               "
@@ -62,27 +61,20 @@ const AdminNavbar = () => {
         <div className="flex items-center gap-6">
 
           {/* Hello Admin */}
-          <span
-            className="
-              text-lg font-bold
-              bg-gradient-to-r from-mintGreen to-oliveAccent
-              bg-clip-text text-transparent
-              tracking-wide
-            "
-          >
+          <span className="text-lg font-bold text-[#556B2F] select-none">
             Hello, {admin?.name || "Admin"}
           </span>
 
-          {/* Logout */}
+          {/* Logout Button */}
           <button
             onClick={logout}
             className="
               px-6 py-2 rounded-xl font-semibold
-              bg-gradient-to-r from-mintGreen to-oliveAccent
-              text-deepForest
-              shadow-md shadow-mintGreen/30
+              bg-[#A3C4A6]
+              text-[#556B2F]
+              shadow-md shadow-[#A3C4A6]/30
               transition-all duration-300
-              hover:scale-105 hover:shadow-lg hover:shadow-mintGreen/50
+              hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105 hover:shadow-lg hover:shadow-[#F5D547]/50
               active:scale-95
             "
           >

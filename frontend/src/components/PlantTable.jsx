@@ -40,7 +40,17 @@ const PlantTable = () => {
     return <p className="text-gray-700 text-center mt-6">Loading plants...</p>;
 
   return (
-    <div className="space-y-8 px-4 md:px-0 max-w-6xl mx-auto">
+    <div className="space-y-12 px-4 md:px-0 max-w-8xl mx-auto">
+
+      {/* Header */}
+      <header className="text-center mb-10">
+        <h1 className="text-4xl md:text-5xl font-playfair font-bold text-[#556B2F]">
+          Manage <span className="text-[#A3C4A6]">Plants</span>
+        </h1>
+        <p className="mt-4 text-[#8B6D5C]/75 max-w-3xl mx-auto">
+          Add, edit, or delete medicinal plants with all relevant details including images, 3D models, and cultivation information.
+        </p>
+      </header>
 
       {/* Plant Form */}
       <PlantForm
@@ -49,9 +59,9 @@ const PlantTable = () => {
       />
 
       {/* Plant Table */}
-      <div className="overflow-x-auto rounded-2xl shadow-xl">
-        <table className="min-w-full bg-white rounded-2xl overflow-hidden">
-          <thead className="bg-gradient-to-r from-mintGreen to-oliveAccent text-white">
+      <div className="overflow-x-auto rounded-3xl shadow-xl border border-green-200">
+        <table className="min-w-[900px] w-full bg-white rounded-3xl overflow-hidden">
+          <thead className="bg-gradient-to-r from-[#4B6B2F] to-[#91B794] text-white">
             <tr>
               <th className="p-4 text-left font-semibold tracking-wide">Name</th>
               <th className="p-4 text-left font-semibold tracking-wide">Botanical Name</th>
@@ -78,13 +88,13 @@ const PlantTable = () => {
                 <td className="p-4 flex gap-3">
                   <button
                     onClick={() => setEditingPlant(p)}
-                    className="bg-yellow-500 text-white px-4 py-1 rounded-xl hover:bg-yellow-400 shadow hover:shadow-lg transition-all"
+                    className="bg-gradient-to-r from-[#A3C4A6] to-[#556B2F] text-white px-5 py-2 rounded-xl shadow hover:shadow-lg transition-all hover:scale-105"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(p._id)}
-                    className="bg-red-500 text-white px-4 py-1 rounded-xl hover:bg-red-400 shadow hover:shadow-lg transition-all"
+                    className="bg-red-500 text-white px-5 py-2 rounded-xl shadow hover:shadow-lg transition-all hover:scale-105"
                   >
                     Delete
                   </button>

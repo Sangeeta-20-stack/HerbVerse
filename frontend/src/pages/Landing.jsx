@@ -2,12 +2,12 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import PlantModel from "../components/PlantModel";
 import FeaturesSection from "../components/FeaturesSection"; 
-import Footer from "../components/Footer"; // import the Footer
+import Footer from "../components/Footer"; 
 import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b1f1a] via-deepForest to-[#081612] text-softWhite font-inter relative overflow-hidden">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#556B2F] font-inter relative overflow-hidden">
       <Navbar />
 
       {/* Hero Section */}
@@ -15,55 +15,56 @@ const Landing = () => {
         {/* LEFT CONTENT */}
         <div className="space-y-7">
           <h1 className="text-4xl md:text-5xl font-playfair font-bold leading-tight">
-            <span className="inline-block animate-wordFade delay-0 hover:text-mintGreen transition-colors">
+            <span className="inline-block animate-wordFade delay-0 text-[#556B2F] hover:text-[#A3C4A6] transition-colors">
               Explore
             </span>{" "}
-            <span className="inline-block animate-wordFade delay-150 hover:text-mintGreen transition-colors">
+            <span className="inline-block animate-wordFade delay-150 text-[#556B2F] hover:text-[#A3C4A6] transition-colors">
               Ancient
             </span>{" "}
-            <span className="inline-block animate-wordFade delay-300 hover:text-mintGreen transition-colors">
+            <span className="inline-block animate-wordFade delay-300 text-[#556B2F] hover:text-[#A3C4A6] transition-colors">
               Healing
             </span>
             <br />
-            <span className="inline-block animate-wordFade delay-500 text-mintGreen hover:text-oliveAccent transition-colors">
+            <span className="inline-block animate-wordFade delay-500 text-[#F5D547] hover:text-[#A3C4A6] transition-colors">
               Through
             </span>{" "}
-            <span className="inline-block animate-wordFade delay-650 text-mintGreen hover:text-oliveAccent transition-colors">
+            <span className="inline-block animate-wordFade delay-650 text-[#F5D547] hover:text-[#A3C4A6] transition-colors">
               Modern
             </span>{" "}
-            <span className="inline-block animate-wordFade delay-800 text-mintGreen hover:text-oliveAccent transition-colors">
+            <span className="inline-block animate-wordFade delay-800 text-[#F5D547] hover:text-[#A3C4A6] transition-colors">
               Technology
             </span>
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-softWhite/75 max-w-xl leading-relaxed animate-fadeIn">
+          <p className="mt-4 text-base md:text-lg text-[#8B6D5C] max-w-xl leading-relaxed animate-fadeIn">
             A virtual herbal garden to discover medicinal plants, traditional
             wisdom, and their real-world healing applications — all in one
             immersive experience.
           </p>
 
           <div className="flex gap-4 pt-4 flex-wrap animate-fadeIn">
-            <a
-              href="/plants"
-              className="px-6 py-3 bg-mintGreen text-deepForest rounded-xl
-              font-semibold hover:bg-oliveAccent hover:scale-105
-              transition-all duration-300"
-            >
-              Explore the Garden
-            </a>
+  {/* Primary Button */}
+  <a
+    href="/plants"
+    className="px-6 py-3 bg-[#556B2F] text-[#F9F8F3] rounded-xl
+    font-semibold hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
+    transition-all duration-300 shadow-md"
+  >
+    Explore the Garden
+  </a>
 
-             
-
-            <Link
+  {/* Secondary Button */}
+  <Link
     to="/login"
-    className="px-6 py-3 border border-mintGreen text-mintGreen
-               rounded-xl font-semibold
-               hover:bg-mintGreen hover:text-deepForest
-               transition-all duration-300"
+    className="px-6 py-3 border-2 border-[#F5D547] text-[#556B2F]
+     rounded-xl font-semibold
+     hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
+     transition-all duration-300 shadow-md"
   >
     Enter the Garden
   </Link>
-          </div>
+</div>
+
         </div>
 
         {/* RIGHT 3D MODEL */}
@@ -79,7 +80,7 @@ const Landing = () => {
       <Footer />
 
       {/* subtle background glow */}
-      <div className="absolute top-36 right-24 w-64 h-64 bg-mintGreen/20 blur-3xl rounded-full -z-10" />
+      <div className="absolute top-36 right-24 w-64 h-64 bg-[#A3C4A6]/20 blur-3xl rounded-full -z-10" />
 
       {/* Animations */}
       <style>

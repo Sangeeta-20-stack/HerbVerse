@@ -98,72 +98,81 @@ const Plants = () => {
 
   return (
     <div className="min-h-screen relative font-inter py-12 px-6">
-      <div className="absolute inset-0 bg-gradient-to-tr from-[#0b1f1a] via-[#082419] to-[#0f2c1d] -z-10" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#F9F8F3] via-[#E3F0E0] to-[#D9E6D3] -z-10" />
 
       <header className="text-center mb-10">
-        <h1 className="text-4xl md:text-5xl font-playfair font-bold text-mintGreen">
-          Nature’s <span className="text-oliveAccent">Healing</span>
+        <h1 className="text-4xl md:text-5xl font-playfair font-bold text-[#556B2F]">
+          Nature’s <span className="text-[#A3C4A6]">Healing</span>
         </h1>
-        <p className="mt-4 text-softWhite/75 max-w-2xl mx-auto">
+        <p className="mt-4 text-[#8B6D5C]/75 max-w-2xl mx-auto">
           Explore medicinal plants with images, 3D models, and detailed information.
         </p>
       </header>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 mb-10">
+        {/* Search */}
         <div className="relative w-full sm:w-1/4">
-          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-green-500" />
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-[#556B2F]" />
           <input
             type="text"
             placeholder="Search plants..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10 pr-4 py-3 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-mintGreen"
+            className="pl-10 pr-4 py-3 w-full rounded-xl shadow-inner bg-[#F9F8F3]/80 text-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#A3C4A6] transition-all"
           />
         </div>
 
+        {/* Filter by medicinal use */}
         <div className="relative w-full sm:w-1/4">
-          <FaLeaf className="absolute left-3 top-1/2 -translate-y-1/2 text-amber-500" />
+          <FaLeaf className="absolute left-3 top-1/2 -translate-y-1/2 text-[#A3C4A6]" />
           <input
             type="text"
             placeholder="Filter by medicinal use..."
             value={filterUse}
             onChange={(e) => setFilterUse(e.target.value)}
-            className="pl-10 pr-4 py-3 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="pl-10 pr-4 py-3 w-full rounded-xl shadow-inner bg-[#F9F8F3]/80 text-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#F5D547] transition-all"
           />
         </div>
 
+        {/* Filter by habitat */}
         <div className="relative w-full sm:w-1/4">
-          <FaGlobe className="absolute left-3 top-1/2 -translate-y-1/2 text-cyan-500" />
+          <FaGlobe className="absolute left-3 top-1/2 -translate-y-1/2 text-[#556B2F]" />
           <input
             type="text"
             placeholder="Filter by habitat..."
             value={filterHabitat}
             onChange={(e) => setFilterHabitat(e.target.value)}
-            className="pl-10 pr-4 py-3 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-cyan-400"
+            className="pl-10 pr-4 py-3 w-full rounded-xl shadow-inner bg-[#F9F8F3]/80 text-[#556B2F] focus:outline-none focus:ring-2 focus:ring-[#A3C4A6] transition-all"
           />
         </div>
 
+        {/* Sort By dropdown */}
         <div className="relative w-full sm:w-1/4">
           <select
             value={sortOption}
             onChange={(e) => setSortOption(e.target.value)}
-            className="pl-3 pr-3 py-2 w-full rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="appearance-none w-full pl-4 pr-10 py-3 rounded-xl bg-gradient-to-r from-[#F9F8F3]/90 via-[#E3F0E0]/90 to-[#D9E6D3]/90 text-[#556B2F] font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-[#F5D547] hover:scale-105 transition-transform duration-300"
           >
             <option value="">Sort By</option>
             <option value="alphabetical">Alphabetical</option>
             <option value="medicinal">Medicinal Importance</option>
           </select>
+          {/* Custom Arrow */}
+          <div className="pointer-events-none absolute top-1/2 right-3 -translate-y-1/2 text-[#556B2F]">
+            ▼
+          </div>
         </div>
       </div>
 
       {/* Plants Grid */}
       {loading ? (
-        <p className="text-center text-white text-lg">Loading plants...</p>
+        <p className="text-center text-[#556B2F] text-lg">Loading plants...</p>
       ) : error ? (
         <p className="text-center text-red-500 text-lg">{error}</p>
       ) : filteredPlants.length === 0 ? (
-        <p className="text-center text-white text-lg">No plants found.</p>
+        <p className="text-center text-[#556B2F] text-lg">No plants found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredPlants.map((plant) => {

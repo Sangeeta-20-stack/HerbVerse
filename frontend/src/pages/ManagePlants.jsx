@@ -2,25 +2,18 @@
 import PlantTable from "../components/PlantTable";
 
 const ManagePlants = () => (
-  <div className="min-h-screen bg-gradient-to-br from-[#eef6f1] to-[#d9f0e4] font-inter">
-    
+  <div className="min-h-screen bg-gradient-to-br from-[#F2F7F0] to-[#E3F1E0] font-inter">
+
     {/* Page Header */}
-    <div className="p-6 md:p-10 max-w-6xl mx-auto text-center">
-      <h1 className="text-4xl md:text-5xl font-extrabold text-green-900 mb-2 animate-fadeIn">
-        Manage Plants
-      </h1>
-      <p className="text-gray-700 text-lg md:text-xl animate-fadeIn delay-200">
-        Add, edit, or remove plants from your garden database.
-      </p>
-    </div>
+   
 
     {/* Table */}
-    <div className="p-6 md:p-10 max-w-6xl mx-auto">
+    <div className="p-6 md:p-10 max-w-7xl mx-auto">
       <PlantTable />
     </div>
 
     {/* Footer */}
-    <footer className="mt-12 py-6 text-center text-gray-600">
+    <footer className="mt-12 py-6 text-center text-[#556B2F]/80 border-t border-[#A3C4A6]/30">
       © 2025 HerbVerse. All rights reserved.
     </footer>
 
