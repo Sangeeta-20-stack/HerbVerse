@@ -17,7 +17,7 @@ const PlantCard = ({ plant, role }) => {
   const [bookmarked, setBookmarked] = useState(false);
   const [note, setNote] = useState(null);
   const audioRef = useRef();
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://herbverse-backend-xg7z.onrender.com";
   const token = localStorage.getItem("token");
 
   const imageUrl =
@@ -167,3 +167,4 @@ const PlantCard = ({ plant, role }) => {
 };
 
 export default PlantCard;
+
