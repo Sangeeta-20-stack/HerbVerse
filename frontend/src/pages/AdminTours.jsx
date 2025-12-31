@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaLeaf, FaGlobe, FaEdit } from "react-icons/fa";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://herbverse-backend-xg7z.onrender.com";
 
 const AdminTours = () => {
   const [tours, setTours] = useState([]);
@@ -293,3 +293,4 @@ const AdminTours = () => {
 };
 
 export default AdminTours;
+
