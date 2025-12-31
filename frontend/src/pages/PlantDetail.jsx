@@ -35,7 +35,7 @@ const PlantDetail = () => {
 
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://herbverse-backend-xg7z.onrender.com";
 
   useEffect(() => {
     const fetchPlant = async () => {
@@ -136,3 +136,4 @@ const PlantDetail = () => {
 };
 
 export default PlantDetail;
+
