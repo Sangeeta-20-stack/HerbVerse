@@ -5,6 +5,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 /* Pages */
 import Landing from "./pages/Landing";
@@ -29,6 +30,7 @@ const AdminRoute = ({ children }) => {
   const role = localStorage.getItem("role");
 
   if (!token || role !== "admin") {
+    toast.error("Admin access required!");
     return <Navigate to="/login" replace />;
   }
   return children;
@@ -37,6 +39,7 @@ const AdminRoute = ({ children }) => {
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("token");
   if (!token) {
+    toast.error("You need to login first!");
     return <Navigate to="/login" replace />;
   }
   return children;
@@ -68,6 +71,9 @@ const NavbarWrapper = () => {
 function App() {
   return (
     <Router>
+      {/* Toast container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <NavbarWrapper />
 
       <Routes>

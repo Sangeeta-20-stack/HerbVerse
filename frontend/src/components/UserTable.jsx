@@ -81,7 +81,7 @@ const UserTable = () => {
                     }
                     className="bg-blue-500 text-white px-4 py-2 rounded-xl hover:bg-blue-400 shadow hover:shadow-lg transition transform hover:-translate-y-0.5"
                   >
-                    Toggle Role
+                    Switch Role
                   </button>
                   <button
                     onClick={() => deleteUser(u._id)}
