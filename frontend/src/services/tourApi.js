@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:5000/api",
+  baseURL: "https://herbverse-backend-xg7z.onrender.com/api",
 });
 
 API.interceptors.request.use((req) => {
@@ -14,3 +14,4 @@ API.interceptors.request.use((req) => {
 
 export const getAllTours = () => API.get("/tours");
 export const getTourById = (id) => API.get(`/tours/${id}`);
+
