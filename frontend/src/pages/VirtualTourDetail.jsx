@@ -4,7 +4,7 @@ import { getTourById } from "../services/tourApi";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "https://herbverse-backend-xg7z.onrender.com";
 
 const PlantModel = ({ modelUrl }) => {
   const { scene } = useGLTF(modelUrl);
@@ -205,3 +205,4 @@ const VirtualTourDetail = () => {
 };
 
 export default VirtualTourDetail;
+
