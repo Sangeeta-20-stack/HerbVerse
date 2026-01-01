@@ -1,5 +1,5 @@
 import React from "react";
-import { FaLeaf, FaSearch, FaVideo, FaBookmark, FaMapMarkedAlt, FaRegLightbulb } from "react-icons/fa";
+import { FaLeaf, FaSearch, FaVideo, FaBookmark, FaMapMarkedAlt, FaRegLightbulb,FaBookOpen, FaUserShield } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const features = [
@@ -13,11 +13,7 @@ const features = [
     title: "Advanced Search & Filters",
     description: "Find plants by medicinal uses, region, or type easily."
   },
-  {
-    icon: <FaVideo className="w-8 h-8 text-[#8B6D5C]" />,
-    title: "Multimedia Integration",
-    description: "High-quality images, videos, and audio descriptions for each plant."
-  },
+  
   {
     icon: <FaMapMarkedAlt className="w-8 h-8 text-[#A3C4A6]" />,
     title: "Guided Virtual Tours",
@@ -29,10 +25,16 @@ const features = [
     description: "Bookmark favorites, take notes, and share plant info on social media."
   },
   {
-    icon: <FaRegLightbulb className="w-8 h-8 text-[#A3C4A6]" />,
-    title: "Plant Care Tips",
-    description: "Learn practical tips to grow and maintain your medicinal plants."
-  }
+  icon: <FaUserShield className="w-8 h-8 text-[#556B2F]" />,
+  title: "Secure User Accounts",
+  description: "Register and log in securely with role-based access for users and administrators."
+},
+{
+  icon: <FaBookOpen className="w-8 h-8 text-[#A3C4A6]" />,
+  title: "Detailed Plant Information",
+  description: "Scientific names, medicinal uses, precautions, and traditional knowledge for each plant."
+}
+  
 ];
 
 const FeaturesSection = () => {
