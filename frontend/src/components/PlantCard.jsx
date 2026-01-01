@@ -83,18 +83,42 @@ const PlantCard = ({ plant, role }) => {
   };
 
   return (
-    <div className="bg-[#F9F8F3]/90 backdrop-blur-md rounded-3xl p-5 shadow-2xl border border-[#A3C4A6]/30 max-w-xs mx-auto
-                    hover:shadow-[0_0_50px_rgba(110,231,183,0.4)] hover:-translate-y-1 transition-transform duration-300 relative">
+    <div
+  className="
+    bg-[#F9F8F3]/95 backdrop-blur-lg
+    rounded-3xl p-5
+    border border-[#A3C4A6]/40
+    shadow-lg
+    max-w-xs mx-auto
+    relative
+    transition-all duration-300
+    hover:-translate-y-1
+    hover:shadow-[0_20px_50px_rgba(85,107,47,0.25)]
+  "
+>
+
 
       {/* Header */}
-      <div className="flex justify-between items-center mb-3">
-        <h2 className="text-2xl font-bold text-[#556B2F] font-playfair">{plant.name}</h2>
+     <div className="
+  flex justify-between items-center mb-3
+  pb-2
+  border-b border-[#A3C4A6]/30
+">
+
+        <h2 className="text-2xl font-extrabold tracking-wide font-playfair text-[#556B2F]">
+{plant.name}</h2>
         <div className="flex items-center gap-2">
           {modelUrl && (
             <button
               onClick={() => setShowModel(!showModel)}
               title="View 3D Model"
-              className="text-[#556B2F] hover:text-[#F5D547] transition-colors duration-300"
+              className="
+  text-[#556B2F]
+  hover:text-[#F5D547]
+  transition-colors duration-300
+  hover:scale-110
+"
+
             >
               <FaCube size={20} />
             </button>
@@ -125,7 +149,18 @@ const PlantCard = ({ plant, role }) => {
       </div>
 
       {/* Image / 3D Model */}
-      <div className="w-full h-44 rounded-lg overflow-hidden mb-3 flex items-center justify-center bg-[#E3F0E0] border border-[#A3C4A6]/50">
+      <div
+  className="
+    w-full h-44 mb-3
+    rounded-2xl
+    overflow-hidden
+    flex items-center justify-center
+    bg-[#F9F8F3]
+    border border-[#A3C4A6]/50
+    shadow-inner
+  "
+>
+
         {showModel && modelUrl ? (
           <Canvas>
             <ambientLight intensity={0.6} />
@@ -136,29 +171,57 @@ const PlantCard = ({ plant, role }) => {
             <OrbitControls enablePan enableZoom enableRotate />
           </Canvas>
         ) : imageUrl ? (
-          <img src={imageUrl} alt={plant.name} className="w-full h-full object-cover" />
+          <img src={imageUrl} alt={plant.name} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+ />
         ) : (
           <span className="text-[#8B6D5C]">No image available</span>
         )}
       </div>
 
       {/* Info */}
-      <ul className="text-[#556B2F] text-sm space-y-1 list-disc list-inside">
-        {plant.botanicalName && <li><span className="font-semibold">Botanical Name:</span> {plant.botanicalName}</li>}
-        {plant.commonNames?.length > 0 && <li><span className="font-semibold">Common Names:</span> {plant.commonNames.join(", ")}</li>}
-        {plant.habitat && <li><span className="font-semibold">Habitat:</span> {plant.habitat}</li>}
-        {plant.medicinalUses?.length > 0 && <li><span className="font-semibold">Medicinal Uses:</span> {plant.medicinalUses.join(", ")}</li>}
+      <ul
+  className="
+    text-[#556B2F] text-sm space-y-1
+    list-disc list-inside
+    bg-white/70
+    border border-[#A3C4A6]/30
+    rounded-xl
+    p-3
+  "
+>
+
+        {plant.botanicalName && <li><span className="font-semibold text-[#556B2F] tracking-wide">
+Botanical Name:</span> {plant.botanicalName}</li>}
+        {plant.commonNames?.length > 0 && <li><span className="font-semibold text-[#556B2F] tracking-wide">
+Common Names:</span> {plant.commonNames.join(", ")}</li>}
+        {plant.habitat && <li><span className="font-semibold text-[#556B2F] tracking-wide">
+Habitat:</span> {plant.habitat}</li>}
+        {plant.medicinalUses?.length > 0 && <li><span className="font-semibold text-[#556B2F] tracking-wide">
+Medicinal Uses:</span> {plant.medicinalUses.join(", ")}</li>}
         {plant.cultivation && (
           <li>
-            <span className="font-semibold">Cultivation:</span> Soil: {plant.cultivation.soil}, Climate: {plant.cultivation.climate}, Watering: {plant.cultivation.watering}
+           <span className="font-semibold text-[#556B2F] tracking-wide">
+Cultivation:</span> Soil: {plant.cultivation.soil}, Climate: {plant.cultivation.climate}, Watering: {plant.cultivation.watering}
           </li>
         )}
         {audioUrl && <li><audio ref={audioRef} src={audioUrl} controls className="mt-1 w-full" /></li>}
       </ul>
 
       {/* Footer */}
-      <div className="mt-3 flex justify-between items-center">
-        <Link to={`/plants/${plant._id}`} className="text-[#A3C4A6] hover:text-[#F5D547] hover:underline font-semibold">
+      <div
+  className="
+    mt-4 pt-3
+    flex justify-between items-center
+    border-t border-[#A3C4A6]/30
+  "
+>
+
+        <Link to={`/plants/${plant._id}`} className="
+  text-[#556B2F] font-semibold
+  hover:text-[#F5D547]
+  transition-colors duration-300
+"
+>
           View Details
         </Link>
       </div>

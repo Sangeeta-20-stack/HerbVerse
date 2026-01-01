@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-[#F9F8F3] text-[#556B2F] font-inter relative overflow-hidden">
+    <div className="min-h-screen bg-[#F9F8F3] text-[#556B2F] font-playfair relative overflow-hidden">
       <Navbar />
 
       {/* Hero Section */}
@@ -25,7 +25,7 @@ const Landing = () => {
               Healing
             </span>
             <br />
-            <span className="inline-block animate-wordFade delay-500 text-[#F5D547] hover:text-[#A3C4A6] transition-colors">
+            <span className="inline-block animate-wordFade delay-500 text-[#A3C4A6] hover:text-[#F5D547] transition-colors">
               Through
             </span>{" "}
             <span className="inline-block animate-wordFade delay-650 text-[#F5D547] hover:text-[#A3C4A6] transition-colors">
@@ -36,35 +36,34 @@ const Landing = () => {
             </span>
           </h1>
 
-          <p className="mt-4 text-base md:text-lg text-[#8B6D5C] max-w-xl leading-relaxed animate-fadeIn">
+          <p className="mt-4 text-base md:text-lg text-[#8B6D5C]/75 max-w-xl leading-relaxed animate-fadeIn">
             A virtual herbal garden to discover medicinal plants, traditional
             wisdom, and their real-world healing applications — all in one
             immersive experience.
           </p>
 
           <div className="flex gap-4 pt-4 flex-wrap animate-fadeIn">
-  {/* Primary Button */}
-  <a
-    href="/plants"
-    className="px-6 py-3 bg-[#556B2F] text-[#F9F8F3] rounded-xl
-    font-semibold hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
-    transition-all duration-300 shadow-md"
-  >
-    Explore the Garden
-  </a>
+            {/* Explore Button linking to login */}
+            <Link
+              to="/login"
+              className="px-6 py-3 bg-[#556B2F] text-[#F9F8F3] rounded-xl
+                font-semibold hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
+                transition-all duration-300 shadow-md"
+            >
+              Explore the Garden
+            </Link>
 
-  {/* Secondary Button */}
-  <Link
-    to="/login"
-    className="px-6 py-3 border-2 border-[#F5D547] text-[#556B2F]
-     rounded-xl font-semibold
-     hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
-     transition-all duration-300 shadow-md"
-  >
-    Enter the Garden
-  </Link>
-</div>
-
+            {/* Enter Button */}
+            <Link
+              to="/login"
+              className="px-6 py-3 border-2 border-[#F5D547] text-[#556B2F]
+               rounded-xl font-semibold
+               hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105
+               transition-all duration-300 shadow-md"
+            >
+              Enter the Garden
+            </Link>
+          </div>
         </div>
 
         {/* RIGHT 3D MODEL */}

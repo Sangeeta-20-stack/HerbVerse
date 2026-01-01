@@ -110,11 +110,29 @@ const VirtualTourDetail = () => {
       </div>
 
       {/* 🌱 PLANT CARD */}
-      <div className="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center hover:shadow-2xl transition-shadow duration-300">
+      <div className="
+  bg-white
+  rounded-3xl
+  border border-[#8B6D5C]/25
+  shadow-lg hover:shadow-2xl
+  p-6
+  flex flex-col md:flex-row items-center
+  transition-all duration-300
+">
+
 
         {/* 3D MODEL */}
         {currentPlant.modelUrl && (
-          <div className="w-[28rem] h-[28rem] rounded-xl shadow-md flex-shrink-0">
+         <div className="
+  w-[28rem] h-[28rem]
+  rounded-2xl
+  border border-[#A3C4A6]/40
+  bg-[#F9F8F3]
+  shadow-inner shadow-[#A3C4A6]/30
+  flex-shrink-0
+  overflow-hidden
+">
+
             <Canvas>
               <ambientLight intensity={0.8} />
               <directionalLight position={[5, 5, 5]} intensity={1} />
@@ -125,7 +143,16 @@ const VirtualTourDetail = () => {
         )}
 
         {/* INFO */}
-        <div className="flex flex-col md:ml-6 mt-4 md:mt-0 items-center md:items-start text-center md:text-left">
+        <div className="
+  flex flex-col md:ml-6 mt-4 md:mt-0
+  items-center md:items-start
+  text-center md:text-left
+  border border-[#A3C4A6]/30
+  rounded-2xl
+  p-5
+  bg-[#F9F8F3]/80
+">
+
 
           {/* 🌿 PLANT NAME */}
           <h3 className="text-3xl md:text-4xl font-bold text-[#556B2F] mb-4">
@@ -138,7 +165,14 @@ const VirtualTourDetail = () => {
               <img
                 src={currentPlant.imageUrl}
                 alt={currentPlant.name}
-                className="w-40 h-40 object-cover rounded-xl shadow-lg mb-2"
+                className="
+  w-40 h-40 object-cover
+  rounded-xl
+  border border-[#A3C4A6]/40
+  shadow-md
+  mb-2
+"
+
               />
               {currentPlant.commonNames?.length > 0 && (
                 <p className="font-semibold text-[#A3C4A6]">
@@ -197,7 +231,17 @@ const VirtualTourDetail = () => {
       </div>
 
       {/* PROGRESS */}
-      <p className="text-center text-gray-500">
+      <p className="
+  text-center
+  text-[#556B2F]
+  font-medium
+  border border-[#A3C4A6]/40
+  rounded-full
+  px-6 py-2
+  bg-white/70
+  w-fit mx-auto
+">
+
         Showing plant {currentPlantIndex + 1} of {tour.plantIds.length}
       </p>
     </div>

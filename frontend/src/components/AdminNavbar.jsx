@@ -23,16 +23,34 @@ const AdminNavbar = () => {
     <nav
       className="
         sticky top-0 z-50
-        backdrop-blur-xl
-        bg-[#F9F8F3]/95
-        border-b border-[#A3C4A6]/30
-        shadow-[0_8px_30px_rgba(0,0,0,0.15)]
+        backdrop-blur-lg
+        bg-[#556B2F]
+        border-b border-[#8B6D5C]/40
+        shadow-md
+        animate-[navEnter_0.6s_ease-out]
       "
     >
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center font-inter">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
-        {/* LEFT LINKS */}
-        <div className="flex items-center gap-8">
+        {/* 🌿 HerbVerse Brand — SAME AS USER NAVBAR */}
+        <div className="cursor-pointer select-none">
+          <span
+            className="
+              text-3xl font-extrabold tracking-wider font-playfair
+              text-[#F9F8F3]
+              hover:text-[#F5D547]
+              transition-colors duration-300
+            "
+            onClick={() => navigate("/plants")}
+          >
+            HerbVerse
+          </span>
+        </div>
+
+        {/* 🔗 Right Navigation */}
+        <div className="flex items-center gap-6 text-[#F9F8F3]">
+
+          {/* Admin Links — SAME STYLE AS USER NAV LINKS */}
           {[
             { label: "Garden", path: "/plants" },
             { label: "Plants", path: "/admin/plants" },
@@ -43,45 +61,72 @@ const AdminNavbar = () => {
               key={label}
               to={path}
               className="
-                relative text-lg font-semibold text-[#556B2F]
-                transition-all duration-300
-                hover:text-[#A3C4A6] hover:-translate-y-0.5
-                after:absolute after:left-0 after:-bottom-1
-                after:h-[2px] after:w-0 after:bg-[#A3C4A6]
-                after:transition-all after:duration-300
-                hover:after:w-full
+                relative text-lg font-playfair group
+                transition-transform duration-300
+                hover:-translate-y-0.5
+                hover:text-[#F5D547]
               "
             >
               {label}
+              <span
+                className="
+                  absolute left-0 -bottom-1 w-0 h-[2px]
+                  bg-[#F5D547]
+                  group-hover:w-full
+                  transition-all duration-300
+                "
+              />
             </Link>
           ))}
-        </div>
 
-        {/* RIGHT SECTION */}
-        <div className="flex items-center gap-6">
-
-          {/* Hello Admin */}
-          <span className="text-lg font-bold text-[#556B2F] select-none">
+          {/* Hello Admin — SAME STYLE AS USER HELLO */}
+          <span
+            className="
+              relative text-lg font-playfair group
+              transition-transform duration-300
+              hover:-translate-y-0.5
+              hover:text-[#F5D547]
+              select-none
+            "
+          >
             Hello, {admin?.name || "Admin"}
+            <span
+              className="
+                absolute left-0 -bottom-1 w-0 h-[2px]
+                bg-[#F5D547]
+                group-hover:w-full
+                transition-all duration-300
+              "
+            />
           </span>
 
-          {/* Logout Button */}
+          {/* Logout Button — SAME AS USER NAVBAR */}
           <button
             onClick={logout}
             className="
-              px-6 py-2 rounded-xl font-semibold
+              px-6 py-2 rounded-2xl text-base font-playfair
               bg-[#A3C4A6]
               text-[#556B2F]
-              shadow-md shadow-[#A3C4A6]/30
+              hover:bg-[#F5D547]
+              hover:text-[#556B2F]
+              hover:scale-105
               transition-all duration-300
-              hover:bg-[#F5D547] hover:text-[#556B2F] hover:scale-105 hover:shadow-lg hover:shadow-[#F5D547]/50
-              active:scale-95
             "
           >
             Logout
           </button>
         </div>
       </div>
+
+      {/* Entry animation */}
+      <style>
+        {`
+          @keyframes navEnter {
+            from { opacity: 0; transform: translateY(-16px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `}
+      </style>
     </nav>
   );
 };

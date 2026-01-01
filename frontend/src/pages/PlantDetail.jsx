@@ -59,19 +59,54 @@ const PlantDetail = () => {
   const modelUrl = plant.modelUrl ? `${BASE_URL}${plant.modelUrl}` : null;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#eef6f1] to-[#fefcfb] font-inter py-10">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 px-6">
+   <div className="
+  min-h-screen
+  bg-gradient-to-br from-[#F9F8F3] via-[#eef6f1] to-[#fefcfb]
+  font-inter
+  py-12
+">
+
+      <div className="
+  max-w-7xl mx-auto
+  grid grid-cols-1 md:grid-cols-2
+  gap-12
+  px-6
+">
+
 
         {/* LEFT */}
         <div className="flex flex-col gap-6">
           {imageUrl && (
-            <div className="h-96 rounded-2xl overflow-hidden border border-[#A3C4A6] shadow-xl">
-              <img src={imageUrl} alt={plant.name} className="w-full h-full object-cover" />
+            <div className="
+  h-96
+  rounded-3xl overflow-hidden
+  border border-[#A3C4A6]/40
+  shadow-lg
+  bg-white
+  transition-shadow duration-300
+  hover:shadow-2xl
+">
+
+              <img
+  src={imageUrl}
+  alt={plant.name}
+  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+/>
+
             </div>
           )}
 
           {modelUrl && (
-            <div className="h-96 rounded-2xl border border-[#A3C4A6] shadow-xl bg-gray-900">
+            <div className="
+  h-96
+  rounded-3xl
+  border border-[#A3C4A6]/40
+  shadow-lg
+  bg-[#1b1f1d]
+  transition-shadow duration-300
+  hover:shadow-2xl
+">
+
               <Canvas camera={{ position: [0, 1, 2.5] }}>
                 <ambientLight intensity={0.8} />
                 <directionalLight position={[2, 2, 5]} />
@@ -88,11 +123,22 @@ const PlantDetail = () => {
         <div className="flex flex-col gap-6">
 
           {/* 🌿 MAIN PLANT NAME (UPDATED COLOR) */}
-          <h1 className="text-5xl font-playfair font-extrabold text-[#556B2F]">
+          <h1 className="
+  text-4xl md:text-5xl
+  font-playfair font-extrabold
+  tracking-wide
+  text-[#556B2F]
+">
+
             {plant.name}
           </h1>
 
-          <p className="text-[#8B6D5C] italic text-lg">
+         <p className="
+  text-[#8B6D5C]
+  italic text-lg
+  max-w-xl
+">
+
             {plant.shortDescription || plant.habitat}
           </p>
 
@@ -110,17 +156,41 @@ const PlantDetail = () => {
             ].map(
               (section, i) =>
                 section.value?.length > 0 && (
-                  <div
-                    key={i}
-                    className="p-4 rounded-2xl bg-white/70 backdrop-blur shadow-md hover:shadow-lg transition"
-                  >
+                 <div
+  key={i}
+  className="
+    p-5
+    rounded-2xl
+    bg-white/80 backdrop-blur-md
+    border border-[#A3C4A6]/30
+    shadow-md
+    transition-all duration-300
+    hover:-translate-y-0.5
+    hover:shadow-xl
+  "
+>
+
 
                     {/* 🌱 BULLET HEADING COLOR MATCHED */}
-                    <h2 className="text-xl font-bold text-[#556B2F] mb-2">
+                    <h2 className="
+  text-xl
+  font-extrabold
+  tracking-wide
+  text-[#556B2F]
+  mb-2
+">
+
                       {section.title}
                     </h2>
 
-                    <ul className="list-disc list-inside ml-4 text-gray-700 space-y-1">
+                   <ul className="
+  list-disc list-inside
+  ml-4
+  text-gray-700
+  space-y-1
+  leading-relaxed
+">
+
                       {section.value.map((val, idx) => (
                         <li key={idx}>{val}</li>
                       ))}
